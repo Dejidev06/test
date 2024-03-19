@@ -1,24 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import Body from "./components/Body";
+import { useState } from "react";
+import SetTask from "./components/SetTask";
+import DisplayTasks from "./components/DisplayTasks";
+import EditTask from "./components/EditTask";
 
 function App() {
+  const [taskArray, setTaskArray] = useState([]);
+  const [showTaskBar, setShowTaskBar] = useState(false);
+  const [editTaskBar, setEditTaskBar] = useState(false);
+  const [userInputValue, setUserInputValue] = useState("");
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <h1
+        style={{
+          textTransform: "capitalize",
+          textAlign: "center",
+          color: "#646681",
+          marginTop: "10px",
+          fontSize: "3rem",
+        }}
+      >
+        todo list
+      </h1>
+      <Body showTaskBar={showTaskBar} setShowTaskBar={setShowTaskBar}  />
+      {showTaskBar && (
+        <SetTask
+          taskArray={taskArray}
+          setTaskArray={setTaskArray}
+          setShowTaskBar={setShowTaskBar}
+        />
+      )}
+      <DisplayTasks taskArray={taskArray} setTaskArray={setTaskArray} setShowTaskBar={setShowTaskBar} showTaskBar={showTaskBar}  editTaskBar={editTaskBar} setEditTaskBar={setEditTaskBar} />
+      {editTaskBar && <EditTask 
+      editTaskBar={editTaskBar} 
+      setEditTaskBar={setEditTaskBar}
+      userInputValue={userInputValue}
+      setuserInputValue={setUserInputValue}
+      taskArray={taskArray}
+      setTaskArray={setTaskArray}
+      setShowTaskBar={setShowTaskBar}
+      showTaskBar={showTaskBar}
+       />}
+      {/* <EditTask /> */}
+    </>
   );
 }
 
